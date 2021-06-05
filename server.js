@@ -80,6 +80,14 @@ app.get("/messages/:id", function (request, response) {
   // response.status(200).send(ourObject)
 });
 
+// Del - delete a message by id
+
+app.delete("/messages/:id", (request, response) => {
+  const index = parseInt(request.params.id) 
+  allMessages.splice(index, 1 , undefined)
+  response.status(204).send()
+})
+
 app.listen(3000, () => {
    console.log("Listening on port 3000")
   });
