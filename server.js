@@ -39,6 +39,16 @@ app.get("/", function (request, response) {
   response.sendFile(__dirname + "/index.html");
 });
 
+// challange 3
+
+app.get("/messages/search", (request, response) => {
+  const text = request.query.text
+  const filteredMessages = allMessages.filter((each)=>{
+    return  each.text.includes(text) 
+  })
+  response.status(200).send(filteredMessages)
+} )
+
 // Get - Read all the messages
 
 app.get("/messages", function (request, response) {
@@ -54,17 +64,18 @@ app.post("/messages", function (request, response) {
   const generateId = lastObject.id + 1
   const from = request.body.from
   const text = request.body.text
-
+  
   const object = {
     id: generateId,
     from: from,
     text: text,
   }
-
+  
   allMessages.push(object)
-
+  
   response.status(201).send(object);
 });
+
 
 
 // Get - Get an Object with Id
@@ -87,6 +98,7 @@ app.delete("/messages/:id", (request, response) => {
   allMessages.splice(index, 1 , undefined)
   response.status(204).send()
 })
+
 
 app.listen(3000, () => {
    console.log("Listening on port 3000")
