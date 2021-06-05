@@ -56,6 +56,7 @@ app.get("/messages", function (request, response) {
 });
 
 // Post - Create a new message
+
 // const lastObject = allMessages[allMessages.length - 1]
 // console.log(lastObject)
 
@@ -71,9 +72,17 @@ app.post("/messages", function (request, response) {
     text: text,
   }
   
-  allMessages.push(object)
-  
-  response.status(201).send(object);
+  // allMessages.push(object)
+
+  // Challange 2
+
+  if (!object.text || !object.from){
+    response.status(400).send()
+  } else {
+    allMessages.push(object)
+    response.status(201).send(object);
+  }
+    
 });
 
 
@@ -98,6 +107,7 @@ app.delete("/messages/:id", (request, response) => {
   allMessages.splice(index, 1 , undefined)
   response.status(204).send()
 })
+
 
 
 app.listen(3000, () => {
