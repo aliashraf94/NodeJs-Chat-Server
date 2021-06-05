@@ -67,6 +67,19 @@ app.post("/messages", function (request, response) {
 });
 
 
+// Get - Get an Object with Id
+
+app.get("/messages/:id", function (request, response) {
+  const id = parseInt(request.params.id)
+  const ourObject  = allMessages[id]
+  if (ourObject) {
+    response.status(200).send(ourObject)
+  } else {
+    response.status(404).send()
+  }
+  // response.status(200).send(ourObject)
+});
+
 app.listen(3000, () => {
    console.log("Listening on port 3000")
   });
